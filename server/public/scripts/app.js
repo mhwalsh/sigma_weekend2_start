@@ -87,10 +87,12 @@ $(document).ready(function(){
       });
     };
 
+    // start the timer on a 5 second interval
     var startTimer = function() {
       timerId = setInterval(nextStudent, 5000);
     };
 
+    // clear and restart the timer
     var resetTimer = function() {
       clearInterval(timerId);
       startTimer();
