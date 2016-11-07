@@ -10,8 +10,22 @@ $(document).ready(function(){
         console.log(data.sigmanauts);
         // get something on the dom
         students = data.sigmanauts;
+        console.log('student.length', students.length);
         display();
       }
+    });
+
+    //increment currentIndex and re-display
+    $("#nextStudent").on('click', function functionName() {
+      console.log('test next button');
+      currentIndex++;
+      //when we hit the end, cycle back to currentIndex = 0
+      console.log('next, currentIndex = ', currentIndex);
+      if(currentIndex >= students.length){
+        console.log('next - cycled to zero');
+        currentIndex = 0;
+      }
+      display();
     });
 
     // a function that will display one student
