@@ -53,13 +53,14 @@ $(document).ready(function(){
       // javascript loop alternative
       students.forEach(function(student, i) {
         $("#tracker").append("<li></li>");
-        $("li").last().data("index", i); // rewrite this?
+        $("li").last().data("index", i); // rewrite using $(this)
       });
     };
 
     // a function iterates through li element and check if currentIndex
     var moveTracker = function() {
       // jquery specific each
+      // https://learn.jquery.com/using-jquery-core/iterating/
       $("#tracker").children().each(function(i, item) {
         // console.log('item = ', item );
         //$(item) or $(this)
@@ -75,12 +76,15 @@ $(document).ready(function(){
 
     // a function that will display one student
     var display = function() {
-      var currStudent = students[currentIndex];
-      $("#studentName").text(currStudent.name);
-      $("#shoutout").text(currStudent.shoutout);
+      $("#outputDiv").fadeOut(600, function() {
+        var currStudent = students[currentIndex];
+        $("#studentName").text(currStudent.name);
+        $("#shoutout").html(currStudent.shoutout);
 
-      var githubUrl = "https://github.com/" + currStudent.git_username;
-      $("#github").attr("href", githubUrl);
+        var githubUrl = "https://github.com/" + currStudent.git_username;
+        $("#github").attr("href", githubUrl);
+        $("#outputDiv").fadeIn(600);
+      });
     };
 
     var startTimer = function() {
