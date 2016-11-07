@@ -1,3 +1,7 @@
+// global var of students arr
+var students;
+var currentIndex = 0;
+
 $(document).ready(function(){
     $.ajax({
       type: "GET",
@@ -5,10 +9,18 @@ $(document).ready(function(){
       success: function(data){
         console.log(data.sigmanauts);
         // get something on the dom
-        var students = data.sigmanauts;
-        for (var i = 0; i < students.length; i++) {
-          $("#outputDiv").append(students[i].name);
-        }
+        students = data.sigmanauts;
+        display();
       }
     });
+
+    // a function that will display one student
+    var display = function() {
+      var currStudent = students[currentIndex];
+      $("#studentName").text(currStudent.name);
+      $("#shoutout").text(currStudent.shoutout);
+
+      var githubUrl = "https://github.com/" + currStudent.git_username;
+      $("#github").attr("href", githubUrl);
+    };
 });
