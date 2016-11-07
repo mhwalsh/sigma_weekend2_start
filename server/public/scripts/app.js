@@ -12,6 +12,8 @@ $(document).ready(function(){
         students = data.sigmanauts;
         console.log('student.length', students.length);
         display();
+        createTracker();
+        moveTracker();
       }
     });
 
@@ -24,6 +26,7 @@ $(document).ready(function(){
         currentIndex = 0;
       }
       display();
+      moveTracker();
     });
 
     //decrement currentIndex and re-display student
@@ -34,7 +37,34 @@ $(document).ready(function(){
         currentIndex = students.length - 1;
       }
       display();
+      moveTracker();
     });
+
+    // a function that will creat li elements for each student
+    var createTracker = function() {
+      // javascript loop alternative
+      students.forEach(function(student, i) {
+        $("#tracker").append("<li></li>");
+        $("li").last().data("index", i); // rewrite this?
+      });
+    };
+
+    // a function iterates through li element and check if currentIndex
+    var moveTracker = function() {
+      // jquery specific each
+      $("#tracker").children().each(function(i, item) {
+        // console.log('item = ', item );
+        //$(item) or $(this)
+        if($(this).data("index") == currentIndex){
+          //set css class
+          $(this).addClass("currentIndex");
+        }else{
+          // remove css class
+          $(this).removeClass("currentIndex");
+        }
+      });
+    };
+
 
     // a function that will display one student
     var display = function() {
