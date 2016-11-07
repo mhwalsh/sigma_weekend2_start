@@ -1,6 +1,7 @@
 // global var of students arr
 var students;
 var currentIndex = 0;
+var timerId;
 
 $(document).ready(function(){
     $.ajax({
@@ -14,11 +15,12 @@ $(document).ready(function(){
         display();
         createTracker();
         moveTracker();
+        startTimer();
       }
     });
 
     //increment currentIndex and re-display student
-    $("#nextStudent").on('click', function functionName() {
+    var nextStudent = function() {
       console.log('test next button');
       currentIndex++;
       //when we hit the end, cycle back to currentIndex = 0
@@ -27,10 +29,11 @@ $(document).ready(function(){
       }
       display();
       moveTracker();
-    });
+      resetTimer();
+    };
 
     //decrement currentIndex and re-display student
-    $("#prevStudent").on('click', function() {
+    var prevStudent = function() {
       console.log('test prev button');
       currentIndex--;
       if(currentIndex < 0){
@@ -38,7 +41,12 @@ $(document).ready(function(){
       }
       display();
       moveTracker();
-    });
+      resetTimer();
+    };
+
+    // button event listenrs
+    $("#nextStudent").on('click', nextStudent);
+    $("#prevStudent").on('click', prevStudent);
 
     // a function that will creat li elements for each student
     var createTracker = function() {
@@ -65,7 +73,6 @@ $(document).ready(function(){
       });
     };
 
-
     // a function that will display one student
     var display = function() {
       var currStudent = students[currentIndex];
@@ -74,5 +81,14 @@ $(document).ready(function(){
 
       var githubUrl = "https://github.com/" + currStudent.git_username;
       $("#github").attr("href", githubUrl);
+    };
+
+    var startTimer = function() {
+      timerId = setInterval(nextStudent, 5000);
+    };
+
+    var resetTimer = function() {
+      clearInterval(timerId);
+      startTimer();
     };
 });
