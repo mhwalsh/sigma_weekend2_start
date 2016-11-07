@@ -15,15 +15,23 @@ $(document).ready(function(){
       }
     });
 
-    //increment currentIndex and re-display
+    //increment currentIndex and re-display student
     $("#nextStudent").on('click', function functionName() {
       console.log('test next button');
       currentIndex++;
       //when we hit the end, cycle back to currentIndex = 0
-      console.log('next, currentIndex = ', currentIndex);
       if(currentIndex >= students.length){
-        console.log('next - cycled to zero');
         currentIndex = 0;
+      }
+      display();
+    });
+
+    //decrement currentIndex and re-display student
+    $("#prevStudent").on('click', function() {
+      console.log('test prev button');
+      currentIndex--;
+      if(currentIndex < 0){
+        currentIndex = students.length - 1;
       }
       display();
     });
